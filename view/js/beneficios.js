@@ -36,53 +36,55 @@ $(document).ready(function () {
 
 
     // Añadimos el div donde irá la información
-    var html = '<div id="beneficios" class="table-responsive"></div>';
+    var html = '<div id="beneficios"></div>';
     if (!page.endsWith("s")){
         $("#lineas, #lineas_a, #lineas_f, #lineas_p").append(html);
     }
     else $(".table-responsive").append(html);
 
-	//Añadimos eventos a los descuentos finales para controlar cambios
-    var adtpor1 =  document.getElementById('adtopor1');
-    adtpor1.addEventListener(
-        'change',
-        function () {
-            show_msg();
-        },
-        true
-    );
-    var adtpor2 =  document.getElementById('adtopor2');
-    adtpor2.addEventListener(
-        'change',
-        function () {
-            show_msg();
-        },
-        true
-    );
-    var adtpor3 =  document.getElementById('adtopor3');
-    adtpor3.addEventListener(
-        'change',
-        function () {
-            show_msg();
-        },
-        true
-    );
-    var adtpor4 =  document.getElementById('adtopor4');
-    adtpor4.addEventListener(
-        'change',
-        function () {
-            show_msg();
-        },
-        true
-    );
-    var adtpor5 =  document.getElementById('adtopor5');
-    adtpor5.addEventListener(
-        'change',
-        function () {
-            show_msg();
-        },
-        true
-    );
+    if (!page.endsWith("s")){
+		//Añadimos eventos a los descuentos finales para controlar cambios
+	    var adtpor1 =  document.getElementById('adtopor1');
+	    adtpor1.addEventListener(
+		'change',
+		function () {
+		    show_msg();
+		},
+		true
+	    );
+	    var adtpor2 =  document.getElementById('adtopor2');
+	    adtpor2.addEventListener(
+		'change',
+		function () {
+		    show_msg();
+		},
+		true
+	    );
+	    var adtpor3 =  document.getElementById('adtopor3');
+	    adtpor3.addEventListener(
+		'change',
+		function () {
+		    show_msg();
+		},
+		true
+	    );
+	    var adtpor4 =  document.getElementById('adtopor4');
+	    adtpor4.addEventListener(
+		'change',
+		function () {
+		    show_msg();
+		},
+		true
+	    );
+	    var adtpor5 =  document.getElementById('adtopor5');
+	    adtpor5.addEventListener(
+		'change',
+		function () {
+		    show_msg();
+		},
+		true
+	    );
+    }
 
     // Consulta AJAX para generar la tabla de beneficios
     $.ajax({
