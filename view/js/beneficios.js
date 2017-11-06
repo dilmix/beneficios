@@ -45,7 +45,8 @@ $(document).ready(function () {
     if (!page.endsWith("s")){
 		//Añadimos eventos a los descuentos finales para controlar cambios
 	    var adtpor1 =  document.getElementById('adtopor1');
-	    adtpor1.addEventListener(
+	    if (adtpor1!== null){
+		    adtpor1.addEventListener(
 		'change',
 		function () {
 		    show_msg();
@@ -84,6 +85,7 @@ $(document).ready(function () {
 		},
 		true
 	    );
+	    }	    
     }
 
     // Consulta AJAX para generar la tabla de beneficios
