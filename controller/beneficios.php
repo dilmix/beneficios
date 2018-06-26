@@ -118,6 +118,13 @@ class beneficios extends fs_controller
     public $pagina;
 
     /**
+     * Valor del tipo de coste
+     * @var string
+     */
+    //public $tipo_coste;
+
+
+    /**
      * Constructor del controlador (heredado de fs_controller)
      *
      * Crea una entrada 'Beneficios' dentro del menú 'informes'
@@ -178,7 +185,12 @@ class beneficios extends fs_controller
         $this->documentos = filter_input(INPUT_POST, 'docs', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
         $this->cantidades = filter_input(INPUT_POST, 'cantidades', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
         $this->pagina = filter_input(INPUT_POST, 'page');
-
+        // Obtenemos que valor de coste a coger, medio o manual
+        /*if ($GLOBALS['config2']['cost_is_average']){
+            $this->tipo_coste = "costemedio";
+        } else {
+            $this->tipo_coste = "preciocoste";
+        }*/
 
         // Si guardamos un documento actualizamos o insertamos en la bdd
         if (isset($_POST['array_beneficios'])) {
@@ -191,6 +203,7 @@ class beneficios extends fs_controller
                 $this->total_neto = $this->neto;
                 $this->total_coste = $this->calcTotalCoste($this->documentos, $this->cantidades);
                 $this->total_beneficio = $this->calcBeneficio($this->total_neto, $this->total_coste);
+
 
                 if ($this->test_mode) {
                     // Testear recepción de datos
@@ -223,7 +236,7 @@ class beneficios extends fs_controller
                     // Calculamos valores que no están en la bdd sobre el precio de coste actual del artículo
                     $this->table = $this->table($this->documentos);
                     $this->total_neto = $this->calcTotalNeto($this->documentos);
-                    $this->total_coste = $this->calcTotalCoste($this->documentos, $this->cantidades);
+                    $this->total_coste = $this->calcTotalCoste($this->documentos, $this->cantidades, $this->tipo_coste);
                     $this->total_beneficio = $this->calcBeneficio($this->total_neto, $this->total_coste);
 
                     // Sumamos los valores que están en la bdd y los que no están
@@ -352,7 +365,7 @@ class beneficios extends fs_controller
      */
     private function calcTotalCoste($array_documentos, $array_cantidades)
     {
-        $totalcoste = 0;
+        
 
         //si hay información en $array_cantidades estamos en nueva_venta
         if (!empty($this->cantidades)) {
@@ -392,10 +405,11 @@ class beneficios extends fs_controller
                 . ' WHERE lineas' . $this->table . '.referencia = articulos.referencia AND '
                 . $this->table . ".codigo IN ('" . implode("', '", $array_documentos) . "')";
 
+
             $data = $this->db->select($sql);
             if ($data) {
                 foreach ($data as $d) {
-                    $preciocoste = $d['preciocoste'];
+					$preciocoste = $d['preciocoste'];
                     $cantidad = $d['cantidad'];
                     $costeporcantidad = $preciocoste * $cantidad;
                     $totalcoste += $costeporcantidad;
@@ -483,6 +497,14 @@ class beneficios extends fs_controller
                 'name' => 'beneficios_nueva_venta',
                 'page_from' => __CLASS__,
                 'page_to' => 'nueva_venta',
+                'type' => 'head',
+                'text' => $jsPath,
+                'params' => ''
+            ],
+            [
+                'name' => 'beneficios_editar_factura',
+                'page_from' => __CLASS__,
+                'page_to' => 'editar_factura',
                 'type' => 'head',
                 'text' => $jsPath,
                 'params' => ''
