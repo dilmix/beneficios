@@ -236,7 +236,7 @@ class beneficios extends fs_controller
                     // Calculamos valores que no están en la bdd sobre el precio de coste actual del artículo
                     $this->table = $this->table($this->documentos);
                     $this->total_neto = $this->calcTotalNeto($this->documentos);
-                    $this->total_coste = $this->calcTotalCoste($this->documentos, $this->cantidades, $this->tipo_coste);
+                    $this->total_coste = $this->calcTotalCoste($this->documentos, $this->cantidades);
                     $this->total_beneficio = $this->calcBeneficio($this->total_neto, $this->total_coste);
 
                     // Sumamos los valores que están en la bdd y los que no están
