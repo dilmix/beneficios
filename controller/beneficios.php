@@ -365,7 +365,7 @@ class beneficios extends fs_controller
      */
     private function calcTotalCoste($array_documentos, $array_cantidades)
     {
-        
+        $totalcoste = 0;
 
         //si hay información en $array_cantidades estamos en nueva_venta
         if (!empty($this->cantidades)) {
