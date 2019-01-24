@@ -295,6 +295,14 @@ function mutation_observer_callback(mutations) {
 //Funcion para enviar los datos de beneficios
 function show_msg() {
 
+    //controlamos los artículos sin referencia (líneas libres) y ponemos un link para que la variable match lo tenga en cuenta.
+    //de esta forma el artículo tiene una referencia no existente y cuando se hace el select le pone precio coste 0
+    var nolink =  $("div .form-control").not(".text-right");
+    var link = '<a href="">Artículo sin ref.</a>';
+    $(nolink).each(function () {
+        if (!$(this).find("a").length) $(this).append(link);
+    });
+	
     //variable que contiene la refererncia del articulo
     var match = $("[data-ref]");
 
